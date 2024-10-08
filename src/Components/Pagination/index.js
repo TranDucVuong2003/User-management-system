@@ -5,16 +5,23 @@ function Pagination({ temListUser, setTemListUser, listUser }) {
     const [current, setCurrent] = useState(1); // Trang hiện tại
     const [offSetValue, setOffSetValue] = useState(3) // Số hàng trên mỗi trang
 
-    let lengOfList = temListUser.length;
+    let lengOfList = listUser.length;
 
 
     // ----------------------Số trang hiển thị 3_5_10 -----------------------------
     function offSet() {
-        let endIndex = current * offSetValue;
-        let startIndex = endIndex - offSetValue;
-        console.log("anc: ", temListUser.slice(startIndex, endIndex));
-        
-        setTemListUser(temListUser.slice(startIndex, endIndex));
+
+        let startIndex = (current - 1) * offSetValue;
+        let endIndex = startIndex + (offSetValue - 1);
+
+        let result = []
+        listUser.map((value, index) => {
+            if (index >= startIndex && index <= endIndex) {
+                result.push(value)
+            }
+        })
+        setTemListUser(result);
+
     }
 
     // -----------------------Số trang hiển thị ---------------------------------------
@@ -22,7 +29,7 @@ function Pagination({ temListUser, setTemListUser, listUser }) {
         return Math.ceil(lengOfList / offSetValue)
     }
 
-
+    //-----------------------------button next && pre------------------------------------------------
     function prePage() {
         if (current > 1) {
             setCurrent(current - 1)
@@ -45,16 +52,24 @@ function Pagination({ temListUser, setTemListUser, listUser }) {
 
     // --------------------------------Số trang hiển thị thay đổi nếu current, offSetValue, listUser thay đổi------------------------
     useEffect(() => {
-        offSet()
-    }, [current, offSetValue])
+        // setTemListUser(listUser);
+
+        if (listUser.length != temListUser.length) {
+            console.log("vao");
+            setTemListUser(listUser);
+        }
+        offSet();
+    }, [current, offSetValue, listUser])
 
     return (
         <div style={{ display: "flex", justifyContent: "space-between", padding: "0 12px", alignItems: 'center' }}>
             <select className="form-select" onChange={(e) => {
                 setOffSetValue(e.target.value);
+                console.log('offsetvalue: ', offSetValue);
+
             }} aria-babel="Default select example"
                 style={{ maxWidth: '100px' }}>
-                <option selected value="3">3</option>
+                <option value="3">3</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
             </select>

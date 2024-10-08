@@ -3,16 +3,24 @@ import './style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '../Pagination';
+import ModalEdit from '../ModalEdit';
 
 function UserList({ listUser, setListUser }) {
+    const [indexUser, setIndexUser] = useState(null)
+    const [show, setShow] = useState(false)
+    function handleClose() {
+        setShow(false);
+    }
+    const handleShow = () => setShow(true);
     const [temListUser, setTemListUser] = useState(listUser)
 
     /*-----------------Button Delete--------------------------------*/
     function handleDelete(indexd) {
         const isConfirm = window.confirm('Bạn có chắc muốn xóa không: ');//return true or false 
         if (isConfirm) {
-            let arr = listUser.filter((_, index) => index !== indexd );
-            setTemListUser(arr) //render
+            let arr = listUser.filter((_, index) => index !== indexd);
+
+            setListUser(arr) //render
         }
     }
 
@@ -35,8 +43,8 @@ function UserList({ listUser, setListUser }) {
     const [searchValue, setSearchValue] = useState("")
     function searchUser() {
         const nameSearch = listUser.filter((item) => {
-            return item.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) || 
-            item.email.toLowerCase().includes(searchValue.toLocaleLowerCase())
+            return item.name.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+                item.email.toLowerCase().includes(searchValue.toLocaleLowerCase())
         })
         setTemListUser(nameSearch)
     }
@@ -44,12 +52,12 @@ function UserList({ listUser, setListUser }) {
     /*-----------------Sort-SapXep--------------------------------*/
 
     let indexOfArray = 0;
-    let listName = temListUser.map((user) => user.name.toLowerCase());
+    let listName = listUser.map((user) => user.name.toLowerCase());
     listName = listName.sort();
 
 
     function sortByName() {
-        while (indexOfArray != temListUser.length) {
+        while (indexOfArray != listUser.length) {
             sortUserByName(indexOfArray)
             indexOfArray++;
         }
@@ -68,64 +76,59 @@ function UserList({ listUser, setListUser }) {
     }
 
     /*Khi nhấn vào add_button => listUser thay đổi thì dependency thay đổi => Set lại temListUser => render lại đúng list vừa đc add thêm*/
-    useEffect(() => {
-        console.log("listUser: ", listUser.length);
-        console.log("temListUser: ", temListUser.length);
-        
-        if(listUser.length != temListUser.length) {
-            console.log("vao");
-            setTemListUser(listUser);
-        }
-    }, [listUser])
+
 
     return (
-        <div className="table-list">
-            <div className="table-list_header">
-                <div style={{ display: 'flex', gap: '8px' }}>
-                    <p>User list</p>
+        <>
+            <div className="table-list">
+                <div className="table-list_header">
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <p>User list</p>
+                    </div>
                 </div>
-            </div>
-            <div className='table-list_change' style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div className="table-list_header--search">
-                    <p style={{ fontSize: '20px' }}>Search</p>
-                    <input id="search-user" type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-                    <button onClick={searchUser} className="table-list_header--search--button" style={{ border: 'none' }}>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
+                <div className='table-list_change' style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div className="table-list_header--search" style={{height: '30px'}}>
+                        <p style={{ fontSize: '20px' }}>Search</p>
+                        <input id="search-user" type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                        <button onClick={searchUser} className="table-list_header--search--button" style={{ border: 'none' }}>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </button>
+                    </div>
+
+                    <select onChange={filterRole} name="" id="role-filter">
+                        <option value="all">All</option>
+                        <option value="User">User</option>
+                        <option value="Admin">Admin</option>
+                        <option value="merchant">Merchant</option>
+                    </select>
+
                 </div>
 
-                <select onChange={filterRole} name="" id="role-filter">
-                    <option value="all">All</option>
-                    <option value="User">User</option>
-                    <option value="Admin">Admin</option>
-                    <option value="merchant">Merchant</option>
-                </select>
-
-            </div>
-
-            <table id="table-main" className="table-list_main">
-                <tr>
-                    <th>#</th>
-                    <th onClick={sortByName} >Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
-                {temListUser?.map((user, index) =>
-                    <tr key={index}>
-                        <td>{index + 1}</td> 
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td>{user.role}</td>
-                        <td>
-                            <button class="btn-edit">edit</button>
-                            <button class="btn-delete" data-index="${index}" onClick={() => handleDelete(index)}>delete</button>
-                        </td>
+                <table id="table-main" className="table-list_main">
+                    <tr>
+                        <th>#</th>
+                        <th onClick={sortByName} >Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Action</th>
                     </tr>
-                )}
-            </table>
-            <Pagination temListUser = {temListUser} setTemListUser={setTemListUser} listUser={listUser} />
-        </div>
+                    {temListUser?.map((user, index) =>
+                        <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td>{user.role}</td>
+                            <td>
+                                <button class="btn-edit" onClick={() => { handleShow(index); setIndexUser(index) }}>edit</button>
+                                <button class="btn-delete" data-index="${index}" onClick={() => handleDelete(index)}>delete</button>
+                            </td>
+                        </tr>
+                    )}
+                </table>
+                <Pagination temListUser={temListUser} setTemListUser={setTemListUser} listUser={listUser} />
+            </div>
+            <ModalEdit show={show} handleClose={handleClose} indexUser={indexUser} listUser = {listUser} setListUser = {setListUser }/>
+        </>
     )
 }
 

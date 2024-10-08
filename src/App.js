@@ -3,9 +3,14 @@ import './assets/reset.css';
 import Header from './Components/Header'
 import InputTable from './Components/InputTable';
 import UserList from './Components/UserList';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const [show, setShow] = useState(false)
+  function handleClose(){
+    setShow(false);
+  }
+  const handleShow = () => setShow(true);
   const [listUser, setListUser] = useState([
     {
 
@@ -42,7 +47,7 @@ function App() {
       name: 'Huan Hoa Hong',
       email: 'HuanHong8@gmail.com',
       role: 'Admin'
-    },{
+    }, {
       name: 'Nguyen Van Vu',
       email: 'Naruto@gmail.com',
       role: 'Admin'
@@ -69,8 +74,7 @@ function App() {
 
       <Header />
       <InputTable listUser={listUser} setListUser={setListUser} />
-      <UserList listUser={listUser} setListUser={setListUser} />
-
+      <UserList listUser={listUser} setListUser={setListUser} handleShow={handleShow}/>
     </div>
   )
 }
