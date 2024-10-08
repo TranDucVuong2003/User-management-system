@@ -1,0 +1,124 @@
+/* ======= table list ===========  */
+.table-list {
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 7px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.table-list_header {
+  background-color: #2e2e2e;
+  height: 40px;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  justify-content: space-between;
+}
+
+
+
+.table-list_header--search {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0 0 12px;
+}
+
+#search-user {
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 20px;
+}
+
+.table-list_header--search--button {
+  background-color: #bbbbbb;
+  border-radius: 5px;
+  box-shadow: 10px;
+  color: white;
+}
+
+.table-list_header--search--button :active{
+  opacity: 0.6;
+}
+
+
+#searh-user {
+  height: 100%;
+  border: none;
+  padding: none;
+  outline: none;
+}
+
+#role-filter{
+  margin: 12px 12px 0px 12px;
+  /* border: none; */
+}
+
+#role-filter > option {
+  outline: none;
+  border: 1px solid transparent;
+  
+}
+
+
+.table-list_main {
+  margin: 40px 20px;
+  width: 100%;
+}
+
+th {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+tr>td:first-child {
+  font-weight: 600;
+}
+
+tr {
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 5px;
+}
+
+th,
+td {
+  width: 100%;
+  display: block;
+  align-self: left;
+  justify-self: left;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #efefef;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.btn-delete {
+  background-color: red;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 8px;
+}
+
+.btn-edit {
+  background-color: yellow;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.numberPage {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

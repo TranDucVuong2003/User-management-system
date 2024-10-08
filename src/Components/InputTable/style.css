@@ -1,0 +1,56 @@
+button{
+    cursor: pointer;
+  }
+
+/* ========= form input ======== */
+.form-input {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+  }
+  
+  .form-input_header {
+    background-color: #2e2e2e;
+    height: 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+  }
+  
+  .form-input-main {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .form-input-main input,
+  .form-input-main select {
+    margin-top: 12px;
+    height: 35px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .form-input-main input {
+    padding-left: 10px;
+  }
+  
+  .form-input_submit {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    color: white;
+    background-color: rgb(56, 56, 255);
+    border: none;
+    border-radius: 5px;
+  }
+  .form-input_submit:active{
+    opacity: 0.8;
+  }

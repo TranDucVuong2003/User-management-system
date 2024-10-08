@@ -1,0 +1,22 @@
+/* ============= HEADER ============= */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2e2e2e;
+    color: white;
+    padding: 0 20px;
+    height: 50px;
+    font-size: 18px;
+    list-style: none;
+  }
+  
+  .header-nav {
+    display: flex;
+    gap: 15px;
+  }
+.header li{
+    list-style: none;
+}
+
+
