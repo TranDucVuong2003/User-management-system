@@ -83,7 +83,7 @@ function UserList({ listUser, setListUser }) {
             <div className="table-list">
                 <div className="table-list_header">
                     <div style={{ display: 'flex', gap: '8px' }}>
-                        <p>User list</p>
+                        <p style={{marginTop: '12px'}}>User list</p>
                     </div>
                 </div>
                 <div className='table-list_change' style={{ display: 'flex', justifyContent: 'space-between' }}>

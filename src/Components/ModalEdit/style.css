@@ -1,0 +1,23 @@
+.main-modals{
+    display: flex;
+    flex-direction: column;;
+    gap: 16px;
+}
+
+.main-modals-input_name,
+.main-modals-input_email{
+    margin-top: 12px;
+    height: 42px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.main-modals-select{
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 5px;
+    margin-top: 12px;
+    height: 42px;
+}

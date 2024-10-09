@@ -51,6 +51,9 @@ button{
     border: none;
     border-radius: 5px;
   }
-  .form-input_submit:active{
+  /* .form-input_submit:active{
+    opacity: 0.8;
+  } */
+  .form-input_submit:hover{
     opacity: 0.8;
   }

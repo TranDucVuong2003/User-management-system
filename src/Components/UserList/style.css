@@ -16,6 +16,7 @@
   align-items: center;
   padding-left: 20px;
   justify-content: space-between;
+  
 }
 
 
@@ -54,12 +55,14 @@
 
 #role-filter{
   margin: 12px 12px 0px 12px;
-  /* border: none; */
+  border-radius: 5px;
+  outline: none;
 }
 
 #role-filter > option {
   outline: none;
   border: 1px solid transparent;
+  border-radius: 5px;
   
 }
 
