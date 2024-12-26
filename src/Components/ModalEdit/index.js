@@ -1,10 +1,14 @@
-import { faDisplay } from '@fortawesome/free-solid-svg-icons';
-import React, { useState } from 'react'
+import React, { memo, useContext, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './style.css'
+import { AppContext } from '../../Context/ContextApp';
 
-function ModalEdit({ show, handleClose, indexUser , setListUser, listUser }) {
+function ModalEdit({ show, handleClose}) {
+
+    //Sử dụng useContext
+    const {setListUser, listUser, indexUser} = useContext(AppContext)
+
     const [name, setName] = useState(listUser[indexUser]?.name || "")
     const [email, setEmail] = useState(listUser[indexUser]?.email || "")
     const [role, setRole] = useState(listUser[indexUser]?.role || "")
@@ -20,6 +24,7 @@ function ModalEdit({ show, handleClose, indexUser , setListUser, listUser }) {
         setListUser(updatedListUser)
         handleClose()
     }
+
     return (
         <div>
             <Modal show={show} onHide={handleClose}>
@@ -31,9 +36,9 @@ function ModalEdit({ show, handleClose, indexUser , setListUser, listUser }) {
                         <input className='main-modals-input_name' placeholder='name' defaultValue={listUser[indexUser]?.name || "" } onChange={(e)=>{setName(e.target.value)}}/>
                         <input className='main-modals-input_email' placeholder='email' defaultValue = {listUser[indexUser]?.email || "" }  onChange={(e)=>{setEmail(e.target.value)}}/>
                         <select className='main-modals-select' defaultValue={listUser[indexUser]?.role}  onChange={(e)=>{setRole(e.target.value)}}>
-                            <option value={"admin"}>Admin</option>
-                            <option value={"user"}>User</option>
-                            <option value={"merchant"}>Merchant</option>
+                            <option value={"Admin"}>Admin</option>
+                            <option value={"User"}>User</option>
+                            <option value={"Merchant"}>Merchant</option>
                         </select>
                    </div>
                 </Modal.Body>
@@ -50,4 +55,4 @@ function ModalEdit({ show, handleClose, indexUser , setListUser, listUser }) {
     )
 }
 
-export default ModalEdit
+export default memo(ModalEdit);

@@ -1,81 +1,57 @@
-import React, { useEffect, useState } from 'react'
 import './assets/reset.css';
-import Header from './Components/Header'
-import InputTable from './Components/InputTable';
-import UserList from './Components/UserList';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AppProvider } from './Context/ContextApp';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import React, { Fragment, lazy, Suspense, useCallback, useEffect, useState } from 'react';
+
+const UserList = lazy(() => import('./Components/UserList'))
+const LogIn = lazy(() => import('./Components/LogIn/LogIn'));
+const Header = lazy(() => import('./Components/Header'))
+const InputTable = lazy(() => import('./Components/InputTable'))
+
 
 function App() {
-  const [show, setShow] = useState(false)
-  function handleClose(){
-    setShow(false);
-  }
-  const handleShow = () => setShow(true);
-  const [listUser, setListUser] = useState([
-    {
+  const [isAuth, setIsAuth] = useState(false);
 
-      name: 'Tran Duc Vuong',
-      email: 'Rongcon838@gmail.com',
-      role: 'Admin'
-    },
-    {
-      name: 'Tran Van Bao',
-      email: 'Bao@Example.vn',
-      role: 'User'
-    },
-    {
-      name: 'Ngoc Thao Nhi',
-      email: 'Hao@tienlen',
-      role: 'merchant'
-    },
-    {
-      name: 'Hoang Van Vu',
-      email: 'VuDaiGia@gmail.com',
-      role: 'Admin'
-    },
-    {
-      name: 'Nghiem Quoc Thinh',
-      email: 'Thinh69@yahoo.com',
-      role: 'User'
-    },
-    {
-      name: 'Nguyen Tien Thi',
-      email: 'Tinthi221@gmail.com',
-      role: 'merchant'
-    },
-    {
-      name: 'Huan Hoa Hong',
-      email: 'HuanHong8@gmail.com',
-      role: 'Admin'
-    }, {
-      name: 'Nguyen Van Vu',
-      email: 'Naruto@gmail.com',
-      role: 'Admin'
-    },
-    {
-      name: 'Ha Thu Thinh',
-      email: 'Thinhxxz0z@yahoo.com',
-      role: 'User'
-    },
-    {
-      name: 'Thi Ha Van',
-      email: 'Vanmuat1@gmail.com',
-      role: 'merchant'
-    },
-    {
-      name: 'Hong Kong chan',
-      email: 'Chinanb2@gmail.com',
-      role: 'Admin'
+  // Kiểm tra trạng thái đăng nhập khi load ứng dụng
+  useEffect(() => {
+    const auth = localStorage.getItem('isAuth');
+    if (auth === 'true') {
+      setIsAuth(true);
     }
-  ])
+  }, []);
 
+  const hanleSetAuth = useCallback((isAuth) => {
+    setIsAuth(isAuth)
+  }, [])
   return (
-    <div>
+    // context
+    <Suspense>
+      <AppProvider>
+        <Routes>
+          <Route path="/" element={
+            isAuth ? <Fragment>
+              <Header setIsAuth={hanleSetAuth} /> <UserList />
+            </Fragment> : <Navigate to="/login" />
+          } />
 
-      <Header />
-      <InputTable listUser={listUser} setListUser={setListUser} />
-      <UserList listUser={listUser} setListUser={setListUser} handleShow={handleShow}/>
-    </div>
+          <Route path="/users" element={
+            isAuth ? <Fragment>
+              <Header setIsAuth={hanleSetAuth} /> <UserList />
+            </Fragment> : <Navigate to="/login" />
+          } />
+
+          <Route path="/login" element={
+            isAuth ? <Navigate to="/" /> : <LogIn setIsAuth={setIsAuth} />
+          } />
+
+          <Route path='/user' element={
+            isAuth ? <><Header setIsAuth={setIsAuth} /><InputTable /></> : <Navigate to="/login" />
+          } />
+
+        </Routes>
+      </AppProvider>
+    </Suspense>
   )
 }
 

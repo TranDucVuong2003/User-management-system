@@ -16,7 +16,7 @@
   align-items: center;
   padding-left: 20px;
   justify-content: space-between;
-  
+
 }
 
 
@@ -41,7 +41,7 @@
   color: white;
 }
 
-.table-list_header--search--button :active{
+.table-list_header--search--button :active {
   opacity: 0.6;
 }
 
@@ -53,23 +53,43 @@
   outline: none;
 }
 
-#role-filter{
+.add-Data {
+  background-color: rgb(128, 212, 234);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  margin: 12px;
+}
+
+.delete-datas{
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(237, 55, 55);
+  color: rgb(255, 255, 255);
+  width: 70px
+}
+
+.delete-datas:hover{
+  opacity: 0.7;
+}
+
+#role-filter {
   margin: 12px 12px 0px 12px;
   border-radius: 5px;
   outline: none;
 }
 
-#role-filter > option {
+#role-filter>option {
   outline: none;
   border: 1px solid transparent;
   border-radius: 5px;
-  
+
 }
 
 
 .table-list_main {
   margin: 40px 20px;
-  width: 100%;
+  width: 111%;
 }
 
 th {
@@ -86,7 +106,7 @@ tr {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-left: 5px;
+  padding-left: 15px;
 }
 
 th,
@@ -104,14 +124,6 @@ tr:nth-child(even) {
   border-bottom: 1px solid #ccc;
 }
 
-.btn-delete {
-  background-color: red;
-  color: white;
-  padding: 6px 10px;
-  border: none;
-  border-radius: 5px;
-  margin-left: 8px;
-}
 
 .btn-edit {
   background-color: yellow;
@@ -124,4 +136,42 @@ tr:nth-child(even) {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+}
+
+.active {
+  background-color: #c9f1ff;
+}
+
+.preBtn {}
+
+.page-item:active {
+  outline: none !important;
+  border: none !important
+}
+
+.nextBtn {
+  opacity: 1;
+}
+
+.cursor-context-menu {
+  cursor: context-menu !important;
+}
+
+.page-links:hover {
+  opacity: 0.7;
+}
+
+.page-links {
+  display: flex;
+  border: solid 1px #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  padding: 4px 11px 4px 11px;
+  color: rgb(74, 135, 173);
+}
+
+.pagination {
+  display: flex;
+  gap: 9px;
+  margin: 6px;
 }
